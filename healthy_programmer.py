@@ -80,12 +80,12 @@ while True:
         print(msg_print)
         activity()
 
-    # if now.hour == 17 and now.minute == 30:
-    #     print("Thanks for your contribution")
-    # with open("activity.txt") as log_file:
-    #     for lines in log_file.readlines():
-    #         print(lines, end="")
-    # break
+    if now.hour == 17 and now.minute == 30:
+        print("Thanks for your contribution")
+    with open("activity.txt") as log_file:
+        for lines in log_file.readlines():
+            print(lines, end="")
+    break
 
 
 
