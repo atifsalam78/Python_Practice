@@ -2,9 +2,22 @@ from datetime import datetime
 import time
 import pytz
 user_name = input("Your good name please: ")
-alarm_set_water = int(input(f"{user_name} please set alarm for today's water break(minutes): "))
-alarm_set_walk = int(input(f"{user_name} please set alarm for today's physical activity break(minutes): "))
-alarm_set_eye = int(input(f"{user_name} please set alarm for today's eye relaxing activity break(minutes): "))
+while True:
+    try:
+        alarm_set_water = int(input(f"{user_name} set minutes for today's water break(1-59): "))
+        if alarm_set_water not in range(1, 60):
+            raise ValueError
+            
+        alarm_set_walk = int(input(f"{user_name} set minutes for today's physical activity(1-59): "))
+        if alarm_set_walk not in range(1, 60):
+            raise ValueError
+            
+        alarm_set_eye = int(input(f"{user_name} set minutes for today's eye relaxing activity(1-59): "))
+        if alarm_set_eye not in range(1, 60):
+            raise ValueError
+        break
+    except ValueError:
+        print("Only numbers with in range 1-59")
 
 
 def activity():
@@ -30,8 +43,8 @@ def user_input():
     import string
     global msg_print
     msg = ""
-    while msg.strip(f"{string.punctuation} {string.digits}") == "":
-        msg = input("Enter: ")
+    while msg.strip(f"{string.punctuation} {string.digits}") != "done":
+        msg = input("""Write "done" :""")
 
 
 while True:
@@ -41,6 +54,7 @@ while True:
     time.sleep(1)
 
     if now.minute == alarm_set_water and now.second < 1:
+        print("\nWater Time \n")
         act_sound = "water.mp3"
         sound_activity(act_sound)
         user_input()
@@ -49,7 +63,7 @@ while True:
         activity()
 
     elif now.minute == alarm_set_walk and now.second < 1:
-        print("\n Physical Time")
+        print("\nPhysical Time")
         act_sound = "physical.mp3"
         sound_activity(act_sound)
         user_input()
@@ -58,7 +72,7 @@ while True:
         activity()
 
     elif now.minute == alarm_set_eye and now.second < 1:
-        print("\n Eye Time")
+        print("\nEye Time")
         act_sound = "eyes.mp3"
         sound_activity(act_sound)
         user_input()
@@ -66,12 +80,12 @@ while True:
         print(msg_print)
         activity()
 
-    if now.hour == 17 and now.minute == 30:
-        print("Thanks for your contribution")
-    with open("activity.txt") as log_file:
-        for lines in log_file.readlines():
-            print(lines, end="")
-    break
+    # if now.hour == 17 and now.minute == 30:
+    #     print("Thanks for your contribution")
+    # with open("activity.txt") as log_file:
+    #     for lines in log_file.readlines():
+    #         print(lines, end="")
+    # break
 
 
 
