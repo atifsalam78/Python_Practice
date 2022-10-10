@@ -16,5 +16,5 @@ with open("iris_data.txt") as pfd:
 my_file = "iris_data_pickle.pkl"
 with open (my_file,"rb") as file_object:
     my_data = pickle.load(file_object)
-    print(my_data)
-    print(type(my_data))
+    for list_lines in my_data:
+        print(list_lines)
