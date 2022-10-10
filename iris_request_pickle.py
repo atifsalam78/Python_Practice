@@ -14,7 +14,7 @@ with open("iris_data.txt") as pfd:
         pickle.dump(data_set, file_object)
 
 my_file = "iris_data_pickle.pkl"
-file_object = open(my_file,"rb")
-my_data = pickle.load(file_object)
-print(my_data)
-print(type(my_data))
+with open (my_file,"rb") as file_object:
+    my_data = pickle.load(file_object)
+    print(my_data)
+    print(type(my_data))
