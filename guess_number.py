@@ -36,7 +36,7 @@ if __name__ == '__main__':
             guess_chance = 5
             while guess_chance != 0:
                 try:
-                    guess = int(input(f"{player} guess the number between (1-100): "))
+                    guess = int(input(f"{player} guess the number between (1-10): "))
                 except ValueError:
                     print("Only Numbers!")
                     continue
@@ -57,9 +57,8 @@ if __name__ == '__main__':
                         print(f"{player} this is your last chance to guess: ")
                         continue
 
-        rand_number = random.randint(1, 100)
-        print(rand_number)
-
+        rand_number = random.randint(1, 10)
+        
         player1 = input("Player 1 enter Your Name: ")
         player1 = player1.capitalize()
         guess_chance_p1 = 5
