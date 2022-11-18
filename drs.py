@@ -6,13 +6,13 @@ from functools import partial
 import threading
 import time
 import imutils
+import sys
 
 stream = cv2.VideoCapture("clip.mp4")
 flag = True
 def play(speed):
     global flag
     print(f"You clicked play. Speed is {speed}")
-
     # play the video in desired mode
     frame1 = stream.get(cv2.CAP_PROP_POS_FRAMES)
     stream.set(cv2.CAP_PROP_POS_FRAMES, frame1 + speed)
@@ -69,7 +69,7 @@ def not_out():
     thread.start()
     print("Player is not out")
 
-# Width and Height of our main screen
+# Width and Height of main screen
 SET_WIDTH = 650
 SET_HEIGHT = 368
 
@@ -98,6 +98,9 @@ btn = tkinter.Button(window, text="Out", width = 50, command=out)
 btn.pack()
 
 btn = tkinter.Button(window, text="Not Out", width = 50,command=not_out)
+btn.pack()
+
+btn = tkinter.Button(window, text="exit", width = 50,command=exit)
 btn.pack()
 
 window.mainloop()
