@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import *
+import customtkinter
+
 
 expression = ""
 
@@ -15,7 +17,6 @@ def equalPress():
         total = str(eval(expression))
         equation.set(total)
 
-
     except:
         equation.set("error")
         expression = ""
@@ -25,144 +26,134 @@ def clear():
     expression = ""
     equation.set("")
 
-if __name__=="__main__":
-
-    mainWindow = tk.Tk()
-    mainWindow.title("Calculator")
-    mainWindow.geometry("370x300")
-
-    equation = StringVar()
-
-    expression_field = Entry(mainWindow, textvariable=equation)
-    expression_field.grid(columnspan=4, ipadx=130)
-
-    btns_frame = Frame(mainWindow, width=312, height=272.5, bg="black")
-    btns_frame.grid()
 
 
+if __name__=="__main__":    
 
-    percentButton = Button(btns_frame, text="%", width=3, bd=0, command=lambda: buttonPress("%"), activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    percentButton.grid(row = 1, column = 0)
+    customtkinter.set_appearance_mode("dark")
+    customtkinter.set_default_color_theme("dark-blue")
+
+    root = customtkinter.CTk()
+    root.title("Calculator")
+    root.geometry(f"{275}x{300}")
+    root.resizable(0,0)
+
     
-    rootButton = Button(btns_frame, text="√", width = 3, bd=0, command=lambda: buttonPress("√"), activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    rootButton.grid(row = 1, column = 3, columnspan = 3, padx = 1, pady = 1)
+     
+    equation = StringVar()  
+    
+    
+    expressionLabel = customtkinter.CTkEntry(master=root, justify=tk.CENTER, width=2750, height=60, corner_radius=5, textvariable=equation,font=('Times', 40), fg_color="black")
+    expressionLabel.configure(state="disabled")
+    expressionLabel.pack()    
 
-    # sqrButton = Button(frame1, text="x2", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
+    
 
-    # fracButton = Button(frame1, text="1/x", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
+    # First Frame
+    frame1 = customtkinter.CTkFrame(master=root, width=50, height=27)
+    frame1.pack(pady=4, padx=6,  expand=False)
 
-    # # Second Frame
+    buttonClear = customtkinter.CTkButton(master=frame1, text="C", text_color="black",width=50, height=30, command=lambda:clear(),corner_radius=5, font=('Times', 30))
+    buttonClear.pack(padx=2, pady=2, side=LEFT)
+    root.bind("<Escape>",lambda event:clear())      
 
-    # frame2 = Frame(mainWindow)
-    # frame2.pack()
-
-    # bottomFrame2 = Frame(mainWindow)
-    # bottomFrame2.pack(side=BOTTOM)
-
-    # percentButton = Button(frame2, text="CE", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # percentButton.pack(side=LEFT)
-
-    # rootButton = Button(frame2, text="C", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # rootButton.pack(side=LEFT)
-
-    # sqrButton = Button(frame2, text="<+>", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
-
-    # fracButton = Button(frame2, text="/", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
+    buttonDiv = customtkinter.CTkButton(master=frame1, text="/", text_color="black",width=50, height=30, command=lambda:buttonPress("/"),corner_radius=5, font=('Times', 30))
+    buttonDiv.pack(padx=2, pady=2, side=LEFT)
+    root.bind("/",lambda event:buttonPress("/"))
 
 
-    # # Third Frame
+    buttonMul = customtkinter.CTkButton(master=frame1, text="x", text_color="black",width=50, height=30, command=lambda:buttonPress("*"),corner_radius=5, font=('Times', 30))
+    buttonMul.pack(padx=2, pady=2, side=LEFT)
+    root.bind("*",lambda event:buttonPress("*"))
 
-    # frame3 = Frame(mainWindow)
-    # frame3.pack()
+    buttonMin = customtkinter.CTkButton(master=frame1, text="-", text_color="black",width=50, height=30, command=lambda:buttonPress("-"),corner_radius=5, font=('Times', 30))
+    buttonMin.pack(padx=2, pady=2, side=LEFT)
+    root.bind("-",lambda event:buttonPress("-"))
 
-    # bottomFrame3 = Frame(mainWindow)
-    # bottomFrame3.pack(side=BOTTOM)
+    buttonPlus = customtkinter.CTkButton(master=frame1, text="+", text_color="black",width=50, height=30, command=lambda:buttonPress("+"),corner_radius=5, font=('Times', 30))
+    buttonPlus.pack(padx=2, pady=2, side=LEFT)
+    root.bind("+",lambda event:buttonPress("+"))
 
-    # percentButton = Button(frame3, text="7", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # percentButton.pack(side=LEFT)
+    #Second Frame
+    frame1 = customtkinter.CTkFrame(master=root, width=50, height=27)
+    frame1.pack(pady=4, padx=6,  expand=False)
 
-    # rootButton = Button(frame3, text="8", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # rootButton.pack(side=LEFT)
+    button7 = customtkinter.CTkButton(master=frame1, text="7", text_color="black",width=50, height=30, command=lambda:buttonPress("7"), border_width=0,corner_radius=5, font=('Times', 30))
+    button7.pack(padx=2, pady=2, side=LEFT)
+    root.bind("7",lambda event:buttonPress("7"))
 
-    # sqrButton = Button(frame3, text="9", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
+    button8 = customtkinter.CTkButton(master=frame1, text="8", text_color="black",width=50, height=30, command=lambda:buttonPress("8"),corner_radius=5, font=('Times', 30))
+    button8.pack(padx=2, pady=2, side=LEFT)
+    root.bind("8",lambda event:buttonPress("8"))
 
-    # fracButton = Button(frame3, text="X", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
+    button9 = customtkinter.CTkButton(master=frame1, text="9", text_color="black",width=50, height=30, command=lambda:buttonPress("9"),corner_radius=5, font=('Times', 30))
+    button9.pack(padx=2, pady=2, side=LEFT)
+    root.bind("9",lambda event:buttonPress("9"))
 
-    # # Fourth Frame
+    buttonDec = customtkinter.CTkButton(master=frame1, text=".", text_color="black",width=50, height=30, command=lambda:buttonPress("."),corner_radius=5, font=('Times', 30))
+    buttonDec.pack(padx=2, pady=2, side=LEFT)
+    root.bind(".",lambda event:buttonPress("."))
 
-    # frame4 = Frame(mainWindow)
-    # frame4.pack()
+    buttonSqr = customtkinter.CTkButton(master=frame1, text="sqr", text_color="black",width=50, height=30, command=lambda:buttonPress("**2"),corner_radius=5, font=('Times', 30))
+    buttonSqr.pack(padx=2, pady=2, side=LEFT)
 
-    # bottomFrame4 = Frame(mainWindow)
-    # bottomFrame4.pack(side=BOTTOM)
+    # Third Frame
 
-    # percentButton = Button(frame4, text="4", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # percentButton.pack(side=LEFT)
+    frame1 = customtkinter.CTkFrame(master=root, width=50, height=27)
+    frame1.pack(pady=4, padx=6,  expand=False)
 
-    # rootButton = Button(frame4, text="5", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # rootButton.pack(side=LEFT)
+    button4 = customtkinter.CTkButton(master=frame1, text="4", text_color="black",width=50, height=30, command=lambda:buttonPress("4"), border_width=0,corner_radius=5, font=('Times', 30))
+    button4.pack(padx=2, pady=2, side=LEFT)
+    root.bind("4",lambda event:buttonPress("4")) 
 
-    # sqrButton = Button(frame4, text="6", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
+    button5 = customtkinter.CTkButton(master=frame1, text="5", text_color="black",width=50, height=30, command=lambda:buttonPress("5"),corner_radius=5, font=('Times', 30))
+    button5.pack(padx=2, pady=2, side=LEFT)
+    root.bind("5",lambda event:buttonPress("5"))
 
-    # fracButton = Button(frame4, text="-", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
-
-    # # Fifth Frame
-
-    # frame5 = Frame(mainWindow)
-    # frame5.pack()
-
-    # bottomFrame5 = Frame(mainWindow)
-    # bottomFrame5.pack(side=BOTTOM)
-
-    # percentButton = Button(frame5, text="1", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # percentButton.pack(side=LEFT)
-
-    # rootButton = Button(frame5, text="2", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # rootButton.pack(side=LEFT)
-
-    # sqrButton = Button(frame5, text="3", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
-
-    # fracButton = Button(frame5, text="+", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
-
-    # # Sixth Frame
-
-    # frame6 = Frame(mainWindow)
-    # frame6.pack()
-
-    # bottomFrame6 = Frame(mainWindow)
-    # bottomFrame6.pack(side=BOTTOM)
-
-    # percentButton = Button(frame6, text="+/-", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # percentButton.pack(side=LEFT)
-
-    # rootButton = Button(frame6, text="0", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # rootButton.pack(side=LEFT)
-
-    # sqrButton = Button(frame6, text=".", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # sqrButton.pack(side=LEFT)
-
-    # fracButton = Button(frame6, text="=", width=8,activebackground="#CDCDC5", font = "Helvetica 12 bold")
-    # fracButton.pack(side=LEFT)
-
-    # button = tk.Button(mainWindow, text="Exit", width=25, activebackground="red4",command=mainWindow.destroy)
-    # button.pack()
+    button6 = customtkinter.CTkButton(master=frame1, text="6", text_color="black",width=50, height=30, command=lambda:buttonPress("6"),corner_radius=5, font=('Times', 30))
+    button6.pack(padx=2, pady=2, side=LEFT)
+    root.bind("6",lambda event:buttonPress("6"))
 
 
+    buttonRoot = customtkinter.CTkButton(master=frame1, text="√", text_color="black",width=50, height=30, command=lambda:buttonPress("**0.5"),corner_radius=5, font=('Times', 30))
+    buttonRoot.pack(padx=2, pady=2, side=LEFT)
 
-    # Main loop used when your application is ready to run
-    mainWindow.mainloop()
+    buttonPer = customtkinter.CTkButton(master=frame1, text="%", text_color="black",width=50, height=30, command=lambda:buttonPress("/100"), border_width=0,corner_radius=5, font=('Times', 30))
+    buttonPer.pack(padx=2, pady=2, side=LEFT)
+    root.bind("%",lambda event:buttonPress("%"))
+
+    # Fourth Frame
+    frame1 = customtkinter.CTkFrame(master=root, width=50, height=27)
+    frame1.pack(pady=4, padx=6,  expand=False)
+
+    button1 = customtkinter.CTkButton(master=frame1, text="1", text_color="black",width=50, height=30, command=lambda:buttonPress("1"), border_width=0,corner_radius=5, font=('Times', 30))
+    button1.pack(padx=2, pady=2, side=LEFT)
+    root.bind("1",lambda event:buttonPress("1"))
+
+    button2 = customtkinter.CTkButton(master=frame1, text="2", text_color="black",width=50, height=30, command=lambda:buttonPress("2"),corner_radius=5, font=('Times', 30))
+    button2.pack(padx=2, pady=2, side=LEFT)
+    root.bind("2",lambda event:buttonPress("2"))
+
+    button3 = customtkinter.CTkButton(master=frame1, text="3", text_color="black",width=50, height=30, command=lambda:buttonPress("3"),corner_radius=5, font=('Times', 30))
+    button3.pack(padx=2, pady=2, side=LEFT)
+    root.bind("3",lambda event:buttonPress("3"))
+
+    button0 = customtkinter.CTkButton(master=frame1, text="0", text_color="black",width=50, height=30, command=lambda:buttonPress("0"),corner_radius=5, font=('Times', 30))
+    button0.pack(padx=2, pady=2, side=LEFT)
+    root.bind("0",lambda event:buttonPress("0"))
+
+    buttonPlusMinus = customtkinter.CTkButton(master=frame1, text="+/-", text_color="black",width=50, height=30, command=lambda:buttonPress("+/-"), border_width=0,corner_radius=5, font=('Times', 30))
+    buttonPlusMinus.pack(padx=2, pady=2, side=LEFT)   
+
+    # Fifth Frame
+    frame1 = customtkinter.CTkFrame(master=root)
+    frame1.pack(pady=4, padx=5)
+
+    buttonEqual = customtkinter.CTkButton(master=frame1, text="=", text_color="black",width=100, height=50, command=lambda:equalPress(),corner_radius=5, font=('Times', 30))
+    buttonEqual.pack(padx=2, pady=2, side=RIGHT)
+    root.bind("<Return>",lambda event:equalPress())
+
+    
 
 
-
-
-
+    root.mainloop()
