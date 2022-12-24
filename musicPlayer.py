@@ -1,16 +1,16 @@
 from customtkinter import filedialog as fd
 import customtkinter
-from tkinter import StringVar
+# from tkinter import StringVar
 from tkinter import *
 import tkinter as tk
 import time
+from tkinter import ttk
 
 # def selectFolder():
 #     global folderPath
 #     filename = fd.askdirectory()
 #     folderPath.set(filename)
 #     print(filename)
-
 
 def selectFile():
     
@@ -20,8 +20,7 @@ def selectFile():
     # filename = fd.askopenfile()
     folderPath.set(filename)
     # print(filename)
-    musicPlay(filename)
-   
+    musicPlay(filename)   
     
 
 def musicPlay(filename):    
@@ -29,6 +28,9 @@ def musicPlay(filename):
     mixer.init()
     mixer.music.load(filename)
     mixer.music.play()
+    a = mixer.music.get_volume()
+    print(a)
+    
     
     # while mixer.music.get_busy(): # wait for music to finish playing
     #     time.sleep(1)
@@ -39,16 +41,26 @@ def musicPause():
     # mixer.music.load(filename)
     mixer.music.pause()
 
+
 def musicStop():    
     from pygame import mixer
     mixer.init()
     mixer.music.stop()
-           
 
+
+def loopFunction():
+    k = 0
+    while k <= MAX:
+        progressVar.set(k)
+        k +=1
+        time.sleep(0.05)
+        root.update_idletasks()
+    # root.after(100, loopFunction)
+           
    
 if __name__=="__main__":
     
-    customtkinter.set_appearance_mode("system")
+    customtkinter.set_appearance_mode("dark")
     customtkinter.set_default_color_theme("blue")
 
     root = customtkinter.CTk()
@@ -82,12 +94,16 @@ if __name__=="__main__":
     frame1= customtkinter.CTkFrame(master=root)
     frame1.pack()
 
-    progressBar = customtkinter.CTkProgressBar(master=frame1, mode="determinate", corner_radius=20)
+    progressVar = DoubleVar()
+    MAX = 100
+    progressBar = ttk.Progressbar(master=frame1, variable=progressVar)
     # progressBar.configure(fg_color="red", bg_color="blue")
     progressBar.start()
-    progressBar.pack()
+    progressBar.pack(fill=X, expand=1)
 
 
+
+    loopFunction()
     root.mainloop()
 
 
