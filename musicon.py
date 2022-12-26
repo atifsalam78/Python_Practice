@@ -3,13 +3,15 @@ import customtkinter
 from tkinter import *
 from pygame import mixer
 import pygame
-
+import audio_metadata
+from io import BytesIO
+from PIL import Image, ImageTk
 
 
 def selectFile():
-    filename= fd.askopenfilenames(initialdir="Music/",title="Select an Audio File", filetypes=(("mp3 files", "*.mp3"),("mp4 files", "*.mp4"),("wave files", "*.wav")))
+    filename= fd.askopenfilenames(initialdir="/home/atif/Music/",title="Select an Audio File", filetypes=(("mp3 files", "*.mp3"),("mp4 files", "*.mp4"),("wave files", "*.wav")))
     for s in filename:
-        s=s.replace("/home/atif/Music/","")
+        s = s.replace("/home/atif/Music/","")
         songs_list.insert(END,s)
 
 def volumeUp():
@@ -24,8 +26,7 @@ def volumeUp():
         mixer.music.set_volume(level)
         print(level)
 
-def volumeDown():
-    # mixer.music.get_volume()
+def volumeDown():    
     level = mixer.music.get_volume()
     level -= 0.1
     level = round(level,1)
@@ -37,13 +38,22 @@ def volumeDown():
         mixer.music.set_volume(level)
         print(level)
 
-def musicPlay():
+def musicPlay():   
     song = songs_list.get(ACTIVE)    
-    song = f"/home/atif/Music/{song}"
-    mixer.music.load(song)    
-    mixer.music.get_busy()
+    song = f"/home/atif/Music/{song}"    
+    mixer.music.load(song)   
     mixer.music.get_volume()
+    # audioMetaData = audio_metadata.load(song)
+    # audioPicture = audioMetaData.pictures[0].data
+    # stream = BytesIO(audioPicture)
+    # thumImage = Image.open(stream)
+    # thumImage.thumbnail((300, 300))
+    # img = ImageTk.PhotoImage(thumImage)
+    # canvas = Canvas(master=root, width = 300, height = 300)
+    # canvas.pack()
+    # canvas.create_image(0, 0, anchor=NW, image=img) 
     mixer.music.play()
+    mixer.music.get_busy()    
 
 def musicPause():
     mixer.music.pause()
@@ -57,7 +67,7 @@ def musicStop():
 def musicResume():
     mixer.music.unpause()
    
-if __name__=="__main__":
+if __name__=="__main__":    
     
     customtkinter.set_appearance_mode("dark")
     customtkinter.set_default_color_theme("blue")
@@ -69,7 +79,7 @@ if __name__=="__main__":
     root.resizable(0,0)
     root.config(background="tomato3")
 
-    mixer.init()   
+    mixer.init()
 
     my_menu=Menu(root)
     root.config(menu=my_menu)
@@ -77,13 +87,25 @@ if __name__=="__main__":
     my_menu.add_cascade(label="Menu",menu=add_song_menu)
     add_song_menu.add_command(label="Add songs",command=selectFile)
     add_song_menu.add_command(label="Delete song")
-    add_song_menu.add_command(label="Exit", command=root.quit)    
+    add_song_menu.add_command(label="Exit", command=root.quit)     
 
     songs_list=Listbox(root,selectmode=SINGLE,bg="tomato4",fg="white",font=('Helvetica',10, "italic"),height=40,width=25,selectbackground="gray",selectforeground="black")
     songs_list.pack(side=LEFT, fill="both")
 
     label1 = customtkinter.CTkLabel(master=root, text="Musicon", text_color="black", bg_color="tomato3", font=("Times", 25, "bold"))
     label1.pack(side=TOP)
+    
+    audioMetaData = audio_metadata.load("/home/atif/Music/Despacito.mp3")
+    audioPicture = audioMetaData.pictures[0].data
+    stream = BytesIO(audioPicture)
+    thumImage = Image.open(stream)
+    thumImage.thumbnail((300, 300))
+    img = ImageTk.PhotoImage(thumImage)
+    canvas = Canvas(master=root, width = 300, height = 300)
+    canvas.pack()
+    canvas.create_image(0, 0, anchor=NW, image=img)    
+
+       
 
     # can = customtkinter.CTkCanvas(root)
     # can.pack(side=RIGHT)
