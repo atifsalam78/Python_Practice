@@ -1,0 +1,219 @@
+import pandas as pd
+from datetime import datetime
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import Treeview, Style
+from tkinter import messagebox
+
+
+# Open Market Rates
+def currency_open_rates():
+    def fixed_map(option):
+        # Fix for setting text colour for Tkinter 8.6.9
+        #
+        # Returns the style map for 'option' with any styles starting with
+        # ('!disabled', '!selected', ...) filtered out.
+        #
+        # style.map() returns an empty list for missing options, so this
+        # should be future-safe.
+        return [elm for elm in style.map('Treeview', query_opt=option) if elm[:2] != ('!disabled', '!selected')]
+
+    # Function to fetch currency data from the url
+    def open_market_rates():        
+            try:
+                # Fetch open market rates from web and convert it into pandas data frame
+                url = 'https://www.forex.com.pk/open_market_rates.asp'
+                data = pd.read_html(url)
+                currency_data = data[11]
+                currency_data = currency_data.rename(columns={0: "Currency", 1: "Buying", 2: "Selling"})
+                currency_data["Date"] = datetime.today().strftime("%d-%m-%Y %H:%M")
+                # currency_data["Date"] = pd.to_datetime(currency_data.Date)
+                currency_data["Date"] = pd.to_datetime(currency_data["Date"], format='%d-%m-%Y %H:%M', dayfirst=True)
+                # currency_usd = currency_data.loc[currency_data["Currency"] == "US Dollar"]
+                # print("\n", currency_data)
+                currency_data.to_csv("open_market_rates.csv", index=False)
+                df = pd.read_csv("open_market_rates.csv")
+                for i in tree.get_children():
+                    tree.delete(i)
+                for i, row in df.iterrows():
+                    tree.insert('', 'end', values=list(row))            
+
+            except Exception as e:
+                    
+                msg = "Check your internet connection\nUnable to fetch data from website or server down"
+                # print("\nUnable to fetch data from website or server down --", e)
+                messagebox.showerror(f"Error 404",msg, icon="error")
+
+    df = pd.read_csv("open_market_rates.csv")
+
+
+    root = tk.Tk()
+            
+    # Title
+    root.title("Open Market Rates")
+
+    # Canvas
+    canvas = Canvas(root, width=400, height=200)
+    canvas.pack()
+
+    # Canvas Line
+    # canvas_height = 20
+    # canvas_width = 600
+    # # y = int(canvas_height / 2)
+    # # canvas.create_line(0, y, canvas_width, y) 
+
+    # Label
+    label = Label(canvas, text="Open Market Rates", font=("Arial", 25))
+    label.pack()
+
+    # Tree View----------- Starts Here
+
+    # Get style
+    style = ttk.Style()
+    # Required to get heading colour to work
+    style.theme_use('clam')
+    # Required to get .tag_configure('colour', background='PaleGreen2') to work
+    style.map('Treeview', foreground=fixed_map('foreground'),  background=fixed_map('background'))
+
+    # Create a Treeview widget
+    tree = ttk.Treeview(canvas)
+    tree["columns"] = list(df.columns)
+    tree["show"] = "headings"
+
+    # Add columns to the Treeview
+    for col in df.columns:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center")
+
+    # Insert data into the Treeview
+    for i, row in df.iterrows():
+        tree.insert('', 'end', values=list(row))
+
+    # Display the Treeview
+    tree.pack(padx=10, pady=10)
+
+    # Tree View----------- Ends Here
+               
+
+    # Button to trigger getting data from web and refresh data
+    button_get_data = Button(canvas, text="Refresh", width=25, command=open_market_rates)
+    button_get_data.pack(padx=150,side=tk.LEFT)
+
+    # Button
+    button_exit = Button(canvas, text="Exit", width=25, command=root.destroy)
+    button_exit.pack(pady=10, side=tk.LEFT)
+
+    label_footer = Label(root, text="https://www.forex.com.pk", font=("Arial", 10))
+    label_footer.pack()
+
+    root.mainloop()
+  
+# Inter Bank Rates
+def currency_inter_bank_rates():
+    def fixed_map(option):
+        # Fix for setting text colour for Tkinter 8.6.9
+        #
+        # Returns the style map for 'option' with any styles starting with
+        # ('!disabled', '!selected', ...) filtered out.
+        #
+        # style.map() returns an empty list for missing options, so this
+        # should be future-safe.
+        return [elm for elm in style.map('Treeview', query_opt=option) if elm[:2] != ('!disabled', '!selected')]
+
+    # Function to fetch currency data from the url
+    def inter_bank_rates():        
+            try:
+                # Fetch inter bank rates from web and convert it into pandas data frame
+                url = 'https://www.forex.pk/inter_bank_rates.asp'
+                data = pd.read_html(url)
+                currency_inter_bank_rates = data[3]
+                currency_inter_bank_rates = currency_inter_bank_rates[[0,1,2,3]]
+                currency_inter_bank_rates = currency_inter_bank_rates.rename(columns={
+                    0: "Currency", 1: "Symbol", 2: "Bank Buying TT Clean", 3:"Bank Selling TT & OD", 4: "Charts"})
+                currency_inter_bank_rates = currency_inter_bank_rates.iloc[1::]
+                currency_inter_bank_rates.reset_index(drop=True, inplace=True)
+
+                currency_inter_bank_rates["Date Extract"] = datetime.today().strftime("%d-%m-%Y %H:%M")
+                # currency_inter_bank_rates["Date Extract"] = pd.to_datetime(currency_inter_bank_rates["Date Extract"])
+                currency_inter_bank_rates["Date Extract"] = pd.to_datetime(currency_inter_bank_rates["Date Extract"], format='%d-%m-%Y %H:%M', dayfirst=True)
+                # print("\n", currency_inter_bank_rates)
+                currency_inter_bank_rates.to_csv("currency_inter_bank_rates.csv",index=False)
+                df = pd.read_csv("currency_inter_bank_rates.csv")
+                for i in tree.get_children():
+                    tree.delete(i)
+                for i, row in df.iterrows():
+                    tree.insert('', 'end', values=list(row))            
+
+            except Exception as e:
+                    
+                msg = "Check your internet connection\nUnable to fetch data from website or server down"
+                # print("\nUnable to fetch data from website or server down --", e)
+                messagebox.showerror(f"Error 404",msg, icon="error")
+
+    df = pd.read_csv("currency_inter_bank_rates.csv")
+
+
+    root = tk.Tk()
+            
+    # Title
+    root.title("Inter Bank Rates")
+
+    # Canvas
+    canvas = Canvas(root, width=400, height=200)
+    canvas.pack()
+
+    # Canvas Line
+    # canvas_height = 20
+    # canvas_width = 600
+    # # y = int(canvas_height / 2)
+    # # canvas.create_line(0, y, canvas_width, y) 
+
+    # Label
+    label = Label(canvas, text="Inter Bank Rates", font=("Arial", 25))
+    label.pack()
+
+    # Tree View----------- Starts Here
+
+    # Get style
+    style = ttk.Style()
+    # Required to get heading colour to work
+    style.theme_use('clam')
+    # Required to get .tag_configure('colour', background='PaleGreen2') to work
+    style.map('Treeview', foreground=fixed_map('foreground'),  background=fixed_map('background'))
+
+    # Create a Treeview widget
+    tree = ttk.Treeview(canvas)
+    tree["columns"] = list(df.columns)
+    tree["show"] = "headings"
+
+    # Add columns to the Treeview
+    for col in df.columns:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center")
+
+    # Insert data into the Treeview
+    for i, row in df.iterrows():
+        tree.insert('', 'end', values=list(row))
+
+    # Display the Treeview
+    tree.pack(padx=10, pady=10)
+
+    # Tree View----------- Ends Here
+               
+
+    # Button to trigger getting data from web and refresh data
+    button_get_data = Button(canvas, text="Refresh", width=25, command=inter_bank_rates)
+    button_get_data.pack(padx=150,side=tk.LEFT)
+
+    # Button
+    button_exit = Button(canvas, text="Exit", width=25, command=root.destroy)
+    button_exit.pack(pady=10, side=tk.LEFT)
+
+    label_footer = Label(root, text="https://www.forex.com.pk", font=("Arial", 10))
+    label_footer.pack()
+
+    root.mainloop()
+
+
+

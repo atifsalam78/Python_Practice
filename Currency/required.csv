@@ -1,0 +1,24 @@
+FROM_CURRENCY,TO_CURRENCY,Buying,CONVERSION_DATE,CONVERSION_TYPE,CONVERSION_RATE,STATUS_CODE,CREATION_DATE,CREATED_BY,LAST_UPDATE_DATE,LAST_UPDATED_BY,LAST_UPDATE_LOGIN
+Australian Dollar,PKR,177.75,16-12-24 13:19,Corporate,180,C,Date,1115,System Date,1115,1115
+Bahrain Dinar,PKR,734.65,16-12-24 13:19,Corporate,742.65,C,Date,1115,System Date,1115,1115
+Canadian Dollar,PKR,196.1,16-12-24 13:19,Corporate,198.5,C,Date,1115,System Date,1115,1115
+China Yuan,PKR,37.99,16-12-24 13:19,Corporate,38.39,C,Date,1115,System Date,1115,1115
+Danish Krone,PKR,39.15,16-12-24 13:19,Corporate,39.55,C,Date,1115,System Date,1115,1115
+Euro,PKR,290,16-12-24 13:19,Corporate,292.75,C,Date,1115,System Date,1115,1115
+Hong Kong Dollar,PKR,35.45,16-12-24 13:19,Corporate,35.8,C,Date,1115,System Date,1115,1115
+Indian Rupee,PKR,3.18,16-12-24 13:19,Corporate,3.27,C,Date,1115,System Date,1115,1115
+Japanese Yen,PKR,1.86,16-12-24 13:19,Corporate,1.92,C,Date,1115,System Date,1115,1115
+Kuwaiti Dinar,PKR,896.85,16-12-24 13:19,Corporate,906.35,C,Date,1115,System Date,1115,1115
+Malaysian Ringgit,PKR,61.75,16-12-24 13:19,Corporate,62.35,C,Date,1115,System Date,1115,1115
+NewZealand $,PKR,162.4,16-12-24 13:19,Corporate,164.4,C,Date,1115,System Date,1115,1115
+Norwegians Krone,PKR,24.93,16-12-24 13:19,Corporate,25.23,C,Date,1115,System Date,1115,1115
+Omani Riyal,PKR,718.85,16-12-24 13:19,Corporate,727.35,C,Date,1115,System Date,1115,1115
+Qatari Riyal,PKR,75.7,16-12-24 13:19,Corporate,76.4,C,Date,1115,System Date,1115,1115
+Saudi Riyal,PKR,73.65,16-12-24 13:19,Corporate,74.2,C,Date,1115,System Date,1115,1115
+Singapore Dollar,PKR,204.99,16-12-24 13:19,Corporate,206.99,C,Date,1115,System Date,1115,1115
+Swedish Korona,PKR,25.04,16-12-24 13:19,Corporate,25.34,C,Date,1115,System Date,1115,1115
+Swiss Franc,PKR,311.35,16-12-24 13:19,Corporate,314.15,C,Date,1115,System Date,1115,1115
+Thai Bhat,PKR,8,16-12-24 13:19,Corporate,8.15,C,Date,1115,System Date,1115,1115
+U.A.E Dirham,PKR,75.3,16-12-24 13:19,Corporate,75.95,C,Date,1115,System Date,1115,1115
+UK Pound Sterling,PKR,348.5,16-12-24 13:19,Corporate,352,C,Date,1115,System Date,1115,1115
+US Dollar,PKR,277.7,16-12-24 13:19,Corporate,279.2,C,Date,1115,System Date,1115,1115
