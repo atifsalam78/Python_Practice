@@ -1,0 +1,24 @@
+How to create virtual environment
+
+conda create -n python12 python==3.12 -y
+
+Activate:
+conda activate python12
+
+De-Activate:
+conda deactivate python12
+
+
+How to install from text file
+
+create file name requirements.txt
+
+specify the packages/dependencies need to installed e.g 
+numpy
+pandas
+matplot lib
+mypy
+
+Above will install latest version of the packages if need specific version mention version like pandas==0.1
+
+pip install -r requirements.txt
