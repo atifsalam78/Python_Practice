@@ -1,0 +1,25 @@
+{
+
+  "params":
+
+  {
+
+    "local_server": "True",
+    "local_uri": "mysql://root:@localhost/codingblog?unix_socket=/opt/lampp/var/mysql/mysql.sock",
+    "prod_uri": "mysql://root:@localhost/codingblog?unix_socket=/opt/lampp/var/mysql/mysql.sock",
+    "fb_url" : "https://facebook.com/codingthunder",
+    "tw_url" : "https://twitter.com/codingthunder",
+    "gh_url" : "https://github.com/codingthunder",
+    "blog_name": "Coding Thunder",
+    "tag_line": "Blog liked by Atif",
+    "gmail_user" : "atif.salam",
+    "gmail_password" : "pasword",
+    "about_text" : "Hi! my name is Atif Salam and I love coding",
+    "no_post" : 2,
+    "login_image" : "admin.svg",
+    "admin_user" : "atif",
+    "admin_password" : "salam",
+    "upload_location" :"/home/atif/PycharmProjects/FlaskProject/static/"
+  }
+
+}
